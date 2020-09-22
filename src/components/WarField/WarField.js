@@ -25,7 +25,8 @@ const WarField = ({ myField, updateGameField }) => {
 
       // If object in array found:
       if (elObject) {
-        elObject.hasShooted = !elObject.hasShooted;
+        // elObject.hasShooted = !elObject.hasShooted;
+        elObject.hasShooted = true;
         // Replace element in copyFields array with new elObject element:
         tempArray.splice(elIndex, 1, { ...elObject });
         // Replace in parent array all child array:
@@ -42,14 +43,21 @@ const WarField = ({ myField, updateGameField }) => {
         ? myField.map((rowArray, index) => {
             return (
               <WarFieldRowStyled key={index}>
-                {rowArray.map((field) => (
-                  <FieldRectangle
-                    key={field.fieldPartId}
-                    hasShip={field.hasShip}
-                    hasShooted={field.hasShooted}
-                    onShootHandler={() => onShootHandler(field.fieldPartId)}
-                  />
-                ))}
+                {rowArray.map((field) => {
+                  // Check if already shooted to this field.
+                  // If TRUE - disable onShootHandler
+                  const isAlreadyShooted = field.hasShooted
+                    ? () => null
+                    : () => onShootHandler(field.fieldPartId);
+                  return (
+                    <FieldRectangle
+                      key={field.fieldPartId}
+                      hasShip={field.hasShip}
+                      hasShooted={field.hasShooted}
+                      onShootHandler={isAlreadyShooted}
+                    />
+                  );
+                })}
               </WarFieldRowStyled>
             );
           })
