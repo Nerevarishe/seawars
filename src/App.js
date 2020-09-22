@@ -1,7 +1,8 @@
 import React from "react";
+import GameField from "./containers/GameField";
 
 function App() {
-  return <div className="App"></div>;
+  return <GameField />;
 }
 
 export default App;
