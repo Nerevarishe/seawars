@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FieldRectangle from "../FieldRectangle";
-import WarFieldRow from "./styled/WarFieldRow";
+import WarFieldRowStyled from "./styled/WarFieldRowStyled";
 
 const exampleWarFieldArray = [
   [
@@ -584,29 +584,57 @@ const exampleWarFieldArray = [
  * Field, where game is held. On page exist two field players and opponents
  */
 const WarField = () => {
-  const [field, setField] = useState([]);
+  const [fields, setFields] = useState([]);
   // const [isMyField, setIsMyField] = useState(null);
 
   useEffect(() => {
     // TODO: Get data from redux store
-    setField(exampleWarFieldArray);
+    setFields(exampleWarFieldArray);
   }, []);
+
+  const onShootHandler = (fieldId) => {
+    console.log("clicked");
+    // Copy state fields array
+    const copyFields = [...fields];
+
+    // Find object by it ID key:
+    // In each nested array find index of element that have fieldId
+    copyFields.forEach((row, index) => {
+      const tempArray = [...row];
+      // Element index in array:
+      const elIndex = tempArray.findIndex((el) => el.fieldPartId === fieldId);
+      // Object, that need to edit:
+      const elObject = tempArray.find((el) => el.fieldPartId === fieldId);
+
+      // If object in array found:
+      if (elObject) {
+        elObject.hasShooted = !elObject.hasShooted;
+        // Replace element in copyFields array with new elObject element:
+        tempArray.splice(elIndex, 1, { ...elObject });
+        // Replace in parent array all child array:
+        copyFields.splice(index, 1, tempArray);
+        // Set edited array as new state:
+        setFields(copyFields);
+      }
+    });
+  };
 
   return (
     <div>
-      {field.length
-        ? field.map((rowArray, index) => {
+      {fields.length
+        ? fields.map((rowArray, index) => {
             console.log(rowArray);
             return (
-              <WarFieldRow key={index}>
+              <WarFieldRowStyled key={index}>
                 {rowArray.map((field) => (
                   <FieldRectangle
                     key={field.fieldPartId}
                     hasShip={field.hasShip}
                     hasShooted={field.hasShooted}
+                    onShootHandler={() => onShootHandler(field.fieldPartId)}
                   />
                 ))}
-              </WarFieldRow>
+              </WarFieldRowStyled>
             );
           })
         : null}

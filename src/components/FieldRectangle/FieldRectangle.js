@@ -6,11 +6,12 @@ import FieldRectangleStyled from "./styled/FieldRectangleStyled";
 /**
  * Part of the playing field. You can place a part of the ship on it and be shot by an opponent.
  */
-const FieldRectangle = ({ hasShip, hasShooted }) => {
+const FieldRectangle = ({ hasShip, hasShooted, onShootHandler }) => {
   return (
     <FieldRectangleStyled
       hasShip={hasShip}
       hasShooted={hasShooted}
+      onClick={onShootHandler}
     />
   );
 };

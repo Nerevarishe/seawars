@@ -11,6 +11,12 @@ const FieldRectangleStyled = styled.div`
   width: ${rem(`${sizeOfField}px`)};
   height: ${rem(`${sizeOfField}px`)};
   border: 1px solid ${({ theme }) => theme.colors.darkGray};
+  
+  display: inline-block;
+  
+  :hover {
+    border-color: crimson;
+  }
 
   // Empty, shooted field:
   // TODO: re-design this part
