@@ -10,7 +10,7 @@ const FieldRectangleStyled = styled.div`
   // Base empty field:
   width: ${rem(`${sizeOfField}px`)};
   height: ${rem(`${sizeOfField}px`)};
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.colors.darkGray};
 
   // Empty, shooted field:
   // TODO: re-design this part
