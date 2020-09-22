@@ -1,25 +1,13 @@
-// const path = require("path");
+const path = require("path");
 
 module.exports = {
   components: "src/components/**/[A-Z]*.js",
-  ignore: [
-    "**/*Styled.js",
-    "**/*Position.js",
-    "**/Fonts.js",
-    "**/GlobalStyle.js",
+  ignore: ["**/*Styled.js", "**/*Position.js", "**/Fonts.js"],
+  require: [
+    path.join(__dirname, "node_modules/normalize.css/normalize.css"),
+    path.join(__dirname, "src/react-styleguidist/styles.css"),
   ],
-  // template: {
-  //   head: {
-  //     links: [
-  //       {
-  //         rel: "stylesheet",
-  //         href:
-  //           "INSERT FONT CDN LINK",
-  //       },
-  //     ],
-  //   },
-  // },
-  // styleguideComponents: {
-  //   Wrapper: path.join(__dirname, "src/styled-components/theme/Theme.js"),
-  // },
+  styleguideComponents: {
+    Wrapper: path.join(__dirname, "src/styled-components/theme/Theme.js"),
+  },
 };
