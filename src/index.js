@@ -9,7 +9,7 @@ import Theme from "./styled-components/theme";
 import GlobalStyle from "./styled-components/GlobalStyle";
 import App from "./App";
 
-export const store = createStore(
+const store = createStore(
   rootReducer,
   compose(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import WarFieldRowStyled from "./styled/WarFieldRowStyled";
 import FieldRectangle from "../FieldRectangle";
@@ -9,7 +8,10 @@ import { updateGameField } from "../../redux/actions/actionsGameField";
 /**
  * Field, where game is held. On page exist two field players and opponents
  */
-const WarField = ({ myField, updateGameField }) => {
+const WarField = () => {
+  const dispatch = useDispatch();
+  const myField = useSelector((state) => state.gameField.myField);
+
   const onShootHandler = (fieldId) => {
     // Copy state fields array
     const copyFields = [...myField];
@@ -32,7 +34,7 @@ const WarField = ({ myField, updateGameField }) => {
         // Replace in parent array all child array:
         copyFields.splice(index, 1, tempArray);
         // Set edited array as new state in redux:
-        updateGameField(copyFields);
+        dispatch(updateGameField(copyFields));
       }
     });
   };
@@ -66,21 +68,4 @@ const WarField = ({ myField, updateGameField }) => {
   );
 };
 
-WarField.propTypes = {
-  myField: PropTypes.array,
-  isMyField: PropTypes.bool,
-};
-
-WarField.defaultProps = {
-  myField: [],
-};
-
-const mapStateToProps = (state) => ({
-  myField: state.gameField.myField,
-});
-
-const mapDispatchToProps = {
-  updateGameField,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(WarField);
+export default WarField;
